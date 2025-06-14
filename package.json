@@ -1,0 +1,31 @@
+{
+  "name": "apol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "apollo-server-express": "^3.13.0",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
+    "express": "^4.18.2",
+    "graphql": "^16.11.0",
+    "mysql2": "^3.14.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/graphql": "^14.2.3",
+    "@types/node": "^24.0.1",
+    "drizzle-kit": "^0.31.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
