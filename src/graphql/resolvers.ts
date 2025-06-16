@@ -6,8 +6,6 @@ export const resolvers = {
         const result = userServices.getUser();
         return result;
     },
-
-    health: () => "server is healthy."
  },
     Mutation: {
        addUser: async (_: any, args: { email: string, password: string }) => {

@@ -15,6 +15,13 @@ async function startServer() {
     resolvers,
   });
 
+  app.get('/health', (req, res) => {
+    res.status(200).json({
+      status: 'ok',
+      message: 'GraphQL server is healthy',
+    });
+  });
+
   await server.start();
 
   server.applyMiddleware({ app: app as any });
