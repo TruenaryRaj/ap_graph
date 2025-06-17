@@ -29,5 +29,10 @@ export const userServices = {
     async deleteUser ( id: number) {
         const result = await db.delete(user).where(eq(user.id, id));
         return result;
+    },
+
+    async findUserByEmail ( email: string) {
+        const result = await db.select().from(user).where(eq(user.email, email));
+        return result;
     }
 }
