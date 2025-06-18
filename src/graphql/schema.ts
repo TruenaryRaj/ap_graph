@@ -31,8 +31,9 @@ export const typeDefs = gql`
     addUser( email: String!, password: String!) : returnMessage!
     editUser( id: Int!, password: String!) : returnMessage!
     deleteUser( id: Int!) : returnMessage!
-    loginUser(email: String!, password: String!) : loginResponse!
+    loginUser(email: String!, password: String!) : returnMessage!
     refreshToken(refreshToken: String!): loginResponse!
+    verifyCode(email: String!, code: String!) : loginResponse!
 
     addTodo( title: String!, description: String!) : returnMessage!
     editTodo( id: Int!, title: String!, description: String!) : returnMessage!

@@ -1,8 +1,8 @@
 import { userServices } from "../services/userServices";
 import bcrypt from 'bcrypt';
-import { generateRefreshToken, generateToken,validateRefreshToken } from "../auth/auth.services";
+import { generateRefreshToken, generateToken,validateRefreshToken, generateVerificationCode } from "../auth/auth.services";
 import { todoServices } from "../services/todoServices";
-
+import { verficationCodeServices } from "../services/verficationCodeServices";
 
 export const resolvers = {
   Query: {
@@ -50,20 +50,40 @@ export const resolvers = {
             if (finalCheck == null) {
                 return "invalid username or password";
             }
-            const token = generateToken({
-                userId: result[0].id,
+           const code =  generateVerificationCode(args.email);
+            const approve = await verficationCodeServices.insertCode(args.email, code);
+            if(approve == null) return "unsucessful";
+            return { message: code };
+        },
+
+        verifyCode: async (_: any, args: { email: string, code: string}, context: any) =>
+        {
+            const isValid = await verficationCodeServices.verifyCode(args.code);
+
+            if (isValid[0].email != args.email) return("Invalid or expired verification code");
+
+            const user = await userServices.findUserByEmail(args.email);
+            if (!user) throw new Error("User not found");
+
+             const token = generateToken({
+                userId: user[0].id,
                 email: args.email,
             });
 
             const refresh = generateRefreshToken({
-                userId: result[0].id,
+                userId: user[0].id,
                 email: args.email,
             });
+            verficationCodeServices.deleteCode(args.code);
             return { 
                     accessToken:token,
                     refreshToken: refresh 
                 };
+            
+           
+
         },
+
 
         refreshToken: async (_: any, args: { refreshToken: string},) => {
               const user = await validateRefreshToken(args.refreshToken);

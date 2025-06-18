@@ -48,5 +48,5 @@ export const userServices = {
     async findUserByEmail ( email: string) {
         const result = await db.select().from(user).where(eq(user.email, email));
         return result;
-    }
+    },
 }
