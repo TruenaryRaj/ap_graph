@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 import { typeDefs } from './graphql/schema';
 import { resolvers } from './graphql/resolvers';
+import { buildContext } from './context';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: buildContext
   });
 
   app.get('/health', (req, res) => {
