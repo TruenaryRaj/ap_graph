@@ -23,6 +23,7 @@ export const typeDefs = gql`
     editUser( id: Int!, password: String!) : String
     deleteUser( id: Int!) : String
     loginUser(email: String!, password: String!) : String
+    verifyCode(email: String!, code: String!) : String
 
     addTodo( title: String!, description: String!) : String
     editTodo( id: Int!, title: String!, description: String!) : String

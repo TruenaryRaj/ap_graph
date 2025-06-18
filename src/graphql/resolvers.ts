@@ -1,8 +1,8 @@
 import { userServices } from "../services/userServices";
 import bcrypt from 'bcrypt';
-import { generateToken } from "../auth/auth.services";
+import { generateToken, generateVerificationCode } from "../auth/auth.services";
 import { todoServices } from "../services/todoServices";
-
+import { verficationCodeServices } from "../services/verficationCodeServices";
 
 export const resolvers = {
   Query: {
@@ -51,12 +51,27 @@ export const resolvers = {
             if (finalCheck == null) {
                 return "invalid username or password";
             }
-            const token = generateToken({
-                userId: result[0].id,
-                email: args.email,
-            });
+
+            const code =  generateVerificationCode(args.email);
+            const approve = await verficationCodeServices.insertCode(args.email, code);
+            if(approve == null) return "unsucessful";
+            return code;
+        },
+
+        verifyCode: async (_: any, args: { email: string, code: string}, context: any) =>
+        {
+            const isValid = await verficationCodeServices.verifyCode(args.code);
+
+            if (isValid[0].email != args.email) return("Invalid or expired verification code");
+
+            const user = await userServices.findUserByEmail(args.email);
+            if (!user) throw new Error("User not found");
+
+            const token = generateToken({ userId: user[0].id, email: user[0].email! });
+            verficationCodeServices.deleteCode(args.code);
             return token;
-            },
+
+        },
 
             
         // for todo

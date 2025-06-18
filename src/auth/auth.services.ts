@@ -7,6 +7,13 @@ export interface JwtPayload {
   email?: string;
 }
 
+
+export function generateVerificationCode(email: string): string {
+  const code = Math.floor(100000 + Math.random() * 900000).toString(); 
+  return code;
+}
+
+
 export function generateToken(payload: JwtPayload) : string {
   return jwt.sign(
    payload, 
