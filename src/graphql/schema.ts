@@ -14,18 +14,26 @@ export const typeDefs = gql`
   userId: Int
   }
 
+  type loginResponse{
+  token: String
+  }
+  
+  type returnMessage{
+  message: String
+  }
+
   type Query{
     getTodo: [todo!]!
   }
 
   type Mutation{
-    addUser( email: String!, password: String!) : String
-    editUser( id: Int!, password: String!) : String
-    deleteUser( id: Int!) : String
-    loginUser(email: String!, password: String!) : String
+    addUser( email: String!, password: String!) : returnMessage!
+    editUser( id: Int!, password: String!) : returnMessage!
+    deleteUser( id: Int!) : returnMessage!
+    loginUser(email: String!, password: String!) : loginResponse!
 
-    addTodo( title: String!, description: String!) : String
-    editTodo( id: Int!, title: String!, description: String!) : String
-    deleteTodo( id: Int!) : String
+    addTodo( title: String!, description: String!) : returnMessage!
+    editTodo( id: Int!, title: String!, description: String!) : returnMessage!
+    deleteTodo( id: Int!) : returnMessage!
 }
 `;

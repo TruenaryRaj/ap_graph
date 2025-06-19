@@ -21,20 +21,19 @@ export const resolvers = {
        addUser: async (_: any, args: { email: string, password: string }) => {
             const hashed = await bcrypt.hash(args.password , 10);
             const result = userServices.addUser(args.email , hashed);
-            return result;
+            return {message: result};
         },
 
         editUser: async (_: any, args: {id: number, password: string}) => {
             const hashed = await bcrypt.hash(args.password, 10)
             const result = userServices.editUser(args.id , hashed);
-            return result;
+            return {message: result};
         
         },
 
         deleteUser: async (_: any, args: { id: number}) => {
             const result = await userServices.deleteUser(args.id);
-            if(result == null) return "delete unsucessful";
-            return "delete sucessful";
+            return {message: result};
         },
 
         loginUser: async (_: any, args: { email: string; password: string }) => {
@@ -55,7 +54,7 @@ export const resolvers = {
                 userId: result[0].id,
                 email: args.email,
             });
-            return token;
+            return { token } ;
             },
 
             
@@ -68,8 +67,7 @@ export const resolvers = {
         const userId = context.user.userId;
         const result = await todoServices.addTodo(args.title, args.description, userId);
 
-        if(result == null) return "unsucessful"
-        return "sucessful"
+        return {message: result};
         },
 
         editTodo: async (_: any, args: { id: number, title: string, description: string}, context: any) => {
@@ -78,18 +76,15 @@ export const resolvers = {
         }
         const userId = context.user.userId;
         const result = await todoServices.editTodo(args.id, args.title, args.description, userId);
-             if(result == null) return "unsucessful"
-        return "sucessful"
+            return {message: result};
         },
 
         deleteTodo: async (_: any, args: { id: number}, context: any) => {
              if (!context.user) {
             throw new Error("Unauthorized");
         }
-        const userId = context.user.userId;
         const result = await todoServices.deleteTodo(args.id);
-        if(result == null) return "unsucessful"
-        return "sucessful"
+        return {message: result};
         }
         },
 

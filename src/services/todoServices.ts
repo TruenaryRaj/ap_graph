@@ -15,7 +15,12 @@ export const todoServices = {
             description,
             userId
         })
-        return result;
+        const affected = (result as any)[0]?.affectedRows ?? 0;
+
+        if (affected === 0) {
+        return "todo creation unsuccessful: invalid input" ;
+        }
+            return "todo creation sucessful";
     },
 
     async editTodo ( id: number, title: string, description: string, userId: number) {
@@ -24,12 +29,22 @@ export const todoServices = {
             description: description,
             userId: userId
         }).where(eq(todo.userId,userId));
-        return result;
+        const affected = (result as any)[0]?.affectedRows ?? 0;
+
+        if (affected === 0) {
+        return "todo edit unsuccessful: no todo found" ;
+        }
+            return "todo edit sucessful";
     },
 
     async deleteTodo( id: number)
     {
         const result = await db.delete(todo).where(eq(todo.id, id));
-        return result;
+        const affected = (result as any)[0]?.affectedRows ?? 0;
+
+        if (affected === 0) {
+        return "todo delete unsuccessful: no todo found" ;
+        }
+            return "todo delete sucessful";
     }
 }
