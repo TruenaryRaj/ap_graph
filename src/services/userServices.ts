@@ -17,7 +17,7 @@ export const userServices = {
        const affected = (result as any)[0]?.affectedRows ?? 0;
 
         if (affected === 0) {
-        return "user insert unsuccessful: invalid inputd" ;
+            return "user insert unsuccessful: invalid inputd" ;
         }
             return "user insert sucessful";
     },
@@ -37,10 +37,10 @@ export const userServices = {
 
     async deleteUser ( id: number) {
         const result = await db.delete(user).where(eq(user.id, id));
-      const affected = (result as any)[0]?.affectedRows ?? 0;
+        const affected = (result as any)[0]?.affectedRows ?? 0;
 
         if (affected === 0) {
-        return "user delete unsuccessful: no user found" ;
+            return "user delete unsuccessful: no user found" ;
         }
             return "user delete sucessful";
     },

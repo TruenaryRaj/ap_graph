@@ -1,6 +1,6 @@
 import { userServices } from "../services/userServices";
 import bcrypt from 'bcrypt';
-import { generateToken } from "../auth/auth.services";
+import { generateRefreshToken, generateToken,validateRefreshToken } from "../auth/auth.services";
 import { todoServices } from "../services/todoServices";
 
 
@@ -54,10 +54,36 @@ export const resolvers = {
                 userId: result[0].id,
                 email: args.email,
             });
-            return { token } ;
-            },
 
-            
+            const refresh = generateRefreshToken({
+                userId: result[0].id,
+                email: args.email,
+            });
+            return { 
+                    accessToken:token,
+                    refreshToken: refresh 
+                };
+        },
+
+        refreshToken: async (_: any, args: { refreshToken: string},) => {
+              const user = await validateRefreshToken(args.refreshToken);
+
+                if (!user) {
+                    throw new Error("Invalid refresh token");
+                }
+
+                return {
+                    accessToken: await generateToken({
+                    userId: user.userId,
+                    email: user.email,
+                }),
+                    refreshToken: await generateRefreshToken({
+                    userId: user.userId,
+                    email: user.email,
+                })
+                };
+        },
+  
         // for todo
         addTodo: async (_:any, args: {title: string, description: string}, context: any) => {
            

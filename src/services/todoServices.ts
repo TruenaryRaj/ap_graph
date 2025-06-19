@@ -9,7 +9,6 @@ export const todoServices = {
     },
 
     async addTodo (title: string, description: string, userId: number) {
-        console.log(userId);
         const result = await db.insert(todo).values({
             title,
             description,
