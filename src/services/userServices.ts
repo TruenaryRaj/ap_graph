@@ -23,7 +23,7 @@ export const userServices = {
     },
 
     async editUser ( id: number, password: string ) {
-            const result = await db.update(user).set({
+        const result = await db.update(user).set({
             password: password
             }).where(eq(user.id , id));
 
