@@ -1,68 +1,9 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "26fdc997-991c-4791-9e1e-ca08135281a1",
+  "id": "8faff90c-8031-4ba0-9232-b1a8105a0604",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "todo": {
-      "name": "todo",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "title": {
-          "name": "title",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "todo_user_id_user_id_fk": {
-          "name": "todo_user_id_user_id_fk",
-          "tableFrom": "todo",
-          "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "todo_id": {
-          "name": "todo_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
     "user": {
       "name": "user",
       "columns": {
