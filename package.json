@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "amqplib": "^0.10.8",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
@@ -19,14 +20,17 @@
     "express": "^4.18.2",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.3"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.7",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.3",
     "@types/graphql": "^14.2.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.0.1",
+    "@types/nodemailer": "^6.4.17",
     "drizzle-kit": "^0.31.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",

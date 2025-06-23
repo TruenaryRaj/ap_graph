@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { generateRefreshToken, generateToken,validateRefreshToken, generateVerificationCode } from "../auth/auth.services";
 import { todoServices } from "../services/todoServices";
 import { verficationCodeServices } from "../services/verficationCodeServices";
+import { sendWelcomeEmailJob } from "../queue/producer";
 
 export const resolvers = {
   Query: {
@@ -21,6 +22,7 @@ export const resolvers = {
        addUser: async (_: any, args: { email: string, password: string }) => {
             const hashed = await bcrypt.hash(args.password , 10);
             const result = userServices.addUser(args.email , hashed);
+            await sendWelcomeEmailJob(args.email);
             return {message: result};
         },
 
@@ -78,10 +80,7 @@ export const resolvers = {
             return { 
                     accessToken:token,
                     refreshToken: refresh 
-                };
-            
-           
-
+                }; 
         },
 
 
