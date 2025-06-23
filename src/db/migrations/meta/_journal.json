@@ -15,6 +15,13 @@
       "when": 1750320259198,
       "tag": "0001_perpetual_arachne",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1750655192572,
+      "tag": "0002_light_black_widow",
+      "breakpoints": true
     }
   ]
 }
